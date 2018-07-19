@@ -9,17 +9,20 @@
         <label>
             Search: <input id="search-text" type="text" placeholder="Filter Notes">
         </label>
-        
-        <div id="notes-div">
-
-        </div>
-        <button id="create-note">Create Note</button>
         <div>
-            <label>
-                <input id = "for-fun-check" type="checkbox"> Check me for fun
+            <label> Sort By: 
+                <select id="filter-by">
+                    <option value="byEdited">Last Edited</option>
+                    <option value="byCreated">Recently Created</option>
+                    <option value="byAlphabetical">Alphabetically</option>
+                </select>
             </label>
-            
         </div>
+        
+        <div id="notes-div"></div>
+        <button id="create-note">Create Note</button>
+        <script src="uuidv4.js"></script>
+        <script src="notes-functions.js"></script>
         <script src="notes-app.js"></script>
     </body>
 </html>
