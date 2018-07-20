@@ -40,11 +40,24 @@ const renderTodos = function(array, filter) {
     })
 }
 
-// Removes a todo from todos by od
-const removeTodo = function (id) {
-    const todoIndex = todos.findIndex(function(todo) {
+// Uses a todo uuid to find the index in todos
+const findTodoIndex = function(id) {
+    return todos.findIndex(function(todo) {
         return todo.id === id
     })
+}
+
+// Changes the completed property of a todo when its checkbox is changed
+const toggleTodoCompleted = function(id) {
+    const todoIndex = findTodoIndex(id)
+    if (todoIndex > -1) {
+        todos[todoIndex].completed = !todos[todoIndex].completed
+    }
+}
+
+// Removes a todo from todos by od
+const removeTodo = function (id) {
+    const todoIndex = findTodoIndex(id)
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
     }
@@ -56,6 +69,12 @@ const generateTodoDom = function(element) {
 
     let todoCheck = document.createElement("input")
     todoCheck.setAttribute("type", "checkbox")
+    todoCheck.checked = element.completed
+    todoCheck.addEventListener("change", function(e){
+        toggleTodoCompleted(element.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
 
     let todoText = document.createElement("span")
     todoText.textContent = element.text
