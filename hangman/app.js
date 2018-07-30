@@ -1,7 +1,6 @@
 const game1 = new HangmanGame("Cat", 2)
 const puzzleEl = document.querySelector("#puzzle-display")
 const guessesEl = document.querySelector("#guesses-left-display")
-const statusEl = document.querySelector("#status-display")
 
 
 window.addEventListener("keypress", function (e) {
@@ -16,13 +15,9 @@ window.addEventListener("keypress", function (e) {
 
 
 const renderHangManGame = function () {
-    puzzleEl.innerHTML = ""
-    puzzleEl.textContent = game1.getPuzzle()
+    puzzleEl.textContent = game1.puzzle
+    guessesEl.textContent = game1.statusMessage
 
-    guessesEl.innerHTML = ""
-    guessesEl.textContent = game1.statusMessage()
-
-    //statusEl.textContent = `Current Status: ${game1.status}`
 }
 
 renderHangManGame()
