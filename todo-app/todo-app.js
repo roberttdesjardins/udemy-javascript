@@ -16,6 +16,7 @@ document.querySelector("#filter-input").addEventListener("input", (e) => {
 
 // Listen for create TODO submission
 document.querySelector("#add-todo-form").addEventListener("submit", (e) => {
+    console.log(e)
     e.preventDefault()
     todos.push({
         id: uuidv4(),
