@@ -18,16 +18,25 @@ const renderHangManGame = function () {
     guessesEl.textContent = game.statusMessage
 }
 
-
-getPuzzle("3").then((puzzle)=> {
+getPuzzle("2").then((puzzle) => {
     console.log(puzzle)
-}, (error) => {
+}).catch((error) => {
     console.log(error)
-})
-
+}) 
 
 getCountry("US").then((country) => {
     console.log(`Country Name: ${country.name}`)
-}, (error) => {
-    console.log(`Error: ${error}`)
+}).catch((error) => {
+    console.log(error)
+})
+
+getLocation().then((data) => {
+    console.log(`You are currently in ${data.city}, ${data.region} ${data.country}!`)
+    return data.country
+}).then((countryCode) => {
+    return getCountry(countryCode)
+}).then((country) => {
+    console.log(country.name)
+}).catch((error) => {
+    console.log(error)
 })

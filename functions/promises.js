@@ -1,29 +1,53 @@
 // Callback
-const getDataCallback = (callback) => {
+const getDataCallback = (num, callback) => {
     setTimeout(() => {
-        callback(undefined, "This is the data")
+        if (typeof num === "number") {
+            callback(undefined, num * 2)
+        } else {
+            callback("NaN")
+        }
     }, 2000)
 }
 
-getDataCallback((error, data) => {
+getDataCallback(2, (error, data) => {
     if (error) {
-        console.log(err)
+        console.log(error)
     } else {
-        console.log(data)
+        getDataCallback(data, (error, data) => {
+            if (error) {
+                console.log(error)
+            } else {
+                console.log(data)
+            }
+        })
     }
 })
 
 
 // Promise
-const getDataPromise = (data) => new Promise((resolve, reject) => {
+const getDataPromise = (num) => new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve(`This is my success data: ${data}`)
+        typeof num === "number" ? resolve(num * 2) : reject("NaN")
     }, 2000)
 })
 
-const myPromise = getDataPromise(123)
-myPromise.then((data) => {
+getDataPromise(2).then((data) => {
+    getDataPromise(data).then((data) => {
+        console.log(data)
+    }, (error) => {
+        console.log(error)
+    })
+}, (error) => {
+    console.log(error)
+})
+
+// Promise Chaining
+getDataPromise(10).then((data) => {
+    return getDataPromise(data)
+}).then((data) => {
+    return "this is some test data"
+}).then((data) => {
     console.log(data)
-}, (err) => {
-    console.log(err)
+}).catch((error) => {
+    console.log(error)
 })
